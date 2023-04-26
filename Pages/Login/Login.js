@@ -73,6 +73,7 @@ export default function Login() {
         }
 
         if (response.data[0].TipoPessoaID == 2) {
+          await AsyncStorage.setItem('@SistemaTCC:user', JSON.stringify(response.data[0]));
           navigation.navigate('TelaTCC');
           return;
         }
