@@ -71,6 +71,14 @@
       "Email": "testeprofessor@gmail.com",
       "Senha": "1234",
       "TipoPessoaID": 1
+    },
+    {
+      "id": 10,
+      "Nome": "TESTEPROFESSOR",
+      "Documento": "22222222222",
+      "Email": "testeprofessor@gmail.com",
+      "Senha": "1234",
+      "TipoPessoaID": 1
     }
   ],
   "Solicitacoes": [

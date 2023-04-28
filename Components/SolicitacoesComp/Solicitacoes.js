@@ -34,7 +34,7 @@ export default function Solicitacoes(Objeto) {
 const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
-        width: '97%',
+        width: '91%',
         borderColor: 'black',
         backgroundColor: 'gray',
         borderWidth: 1,
