@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import HomePage from './Pages/HomePage/HomePage';
 import Login from './Pages/Login/Login';
 import NovoUsuario from './Pages/Registro/NovoUsuario';
 import TelaOrientadores from './Pages/TelaOrientadores/TelaOrientadores';
@@ -14,6 +15,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen name="HomePage" component={HomePage} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="TelaOrientadores" component={TelaOrientadores} />
         <Stack.Screen name="TelaTCC" component={TelaTCC} />

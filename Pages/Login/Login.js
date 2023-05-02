@@ -3,10 +3,8 @@ import React, { useState } from 'react';
 import {
   TextInput,
   StyleSheet,
-  Text,
   View,
-  FlatList,
-  Alert
+  Image
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
@@ -32,7 +30,7 @@ export default function Login() {
   const [flLoading, setLoading] = useState(false)
   //const [UsuarioValido, setUsuarioValido] = useState([])
 
-
+  const Imagem = require('../../assets/Images/logo_uniaraxa.png');
 
   function handleChangeIcon() {
     let icone = iconPass == eye ? eyeOff : eye;
@@ -41,7 +39,7 @@ export default function Login() {
     setIconPass(icone);
   }
 
-  function TrocarNome(){
+  function TrocarNome() {
     txtLogin === 'HUMBERTO' ? setLogin('ESTEVAO') : setLogin('HUMBERTO');
   }
 
@@ -65,7 +63,7 @@ export default function Login() {
         alert('Usuario e/ou senha inválido!');
         return;
       } else {
-      
+
         if (response.data[0].TipoPessoaID == 1) {
           await AsyncStorage.setItem('@SistemaTCC:user', JSON.stringify(response.data[0]));
           navigation.navigate('TelaOrientadores');
@@ -92,9 +90,15 @@ export default function Login() {
     navigation.navigate('NovoUsuario')
   }
 
+  function navigateToBack() {
+    navigation.navigate('HomePage')
+  }
+
   return (
     <View style={styles.container}>
-      <Text style={styles.textTitle}>Faça seu login ou seu cadastro</Text>
+
+      <Image source={Imagem} style={styles.imagem} />
+
       <TextInput
         style={styles.textInput}
         placeholder='Login'
@@ -121,11 +125,9 @@ export default function Login() {
       <MyButton title='Entrar' onPress={navigateToAlunosOuProfessores}
 
       />
+      <MyButton title='Trocar' onPress={TrocarNome} />
 
-      <LinkButton title='Cadastrar-se'
-        onPress={navigateToNovoUsuario}
-      />
-      <MyButton title='Trocar' onPress={TrocarNome}/>
+      <MyButton title='Sair' onPress={navigateToBack} />
 
     </View>
   );
@@ -135,18 +137,14 @@ export default function Login() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'gray',
+    backgroundColor: 'blue',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  textTitle: {
-    borderColor: colors.black,
-    fontSize: 28,
-    marginBottom: 8
-  },
   textInput: {
     height: 40,
-    borderColor: colors.white,
+    backgroundColor: colors.white,
+    borderColor: colors.black,
     borderRadius: 8,
     borderWidth: 1,
     width: '70%',
@@ -154,8 +152,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8
   },
   textInputPassword: {
+    backgroundColor: colors.white,
+    borderColor: colors.black,
     height: 40,
     borderWidth: 0,
+    marginLeft: 6,
     width: '70%',
     marginBottom: 16,
     paddingHorizontal: 8
@@ -170,13 +171,15 @@ const styles = StyleSheet.create({
   },
   buttonTextIn: {
     color: colors.black,
-    fontSize: 18,
+    fontSize: 22,
     fontWeight: 'bold'
   },
   passwordContainer: {
-    marginBottom: 16,
-    height: 40,
-    borderColor: 'white',
+    marginBottom: 35,
+    backgroundColor: colors.white,
+    borderColor: colors.black,
+    height: 42,
+    borderColor: 'black',
     borderRadius: 8,
     borderWidth: 1,
     width: '70%',
@@ -187,5 +190,10 @@ const styles = StyleSheet.create({
     color: colors.black,
     paddingHorizontal: 8,
     marginTop: 6
+  },
+  imagem: {
+    width: 250,
+    height: 250,
+    marginBottom: 100
   },
 });

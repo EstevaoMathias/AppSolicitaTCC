@@ -20,7 +20,7 @@ export default function MyButton(props) {
 
 const styles = StyleSheet.create({
     MyButtonStyle: {
-        backgroundColor: colors.green,
+        backgroundColor: colors.gray,
         borderRadius: 8,
         height: 50,
         width: '70%',
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     },
     MyTextButtonStyle: {
         color: 'black',
-        fontSize: 18,
+        fontSize: 25,
         fontWeight: 'bold'
     },
 });

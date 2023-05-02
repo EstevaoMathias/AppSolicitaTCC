@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/core';
 
 
 export default function Pessoa(Objeto) {
-    const Imagem = require('../../assets/Images/teste.png');
+    const Imagem = require('../../assets/Images/logo_uniaraxa.png');
 
     const navigation = useNavigation();
 
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '81%',
         borderColor: 'black',
-        backgroundColor: 'gray',
+        backgroundColor: 'white',
         borderWidth: 1,
         borderRadius: 8,
         margin: 5,
@@ -70,11 +70,13 @@ const styles = StyleSheet.create({
         borderRadius: 35
     },
     title: {
-        fontSize: 16,
-        fontWeight: 'bold'
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: colors.black
     },
     subTitle: {
-        fontSize: 12,
+        fontSize: 15,
+        color: colors.black
 
 
     }

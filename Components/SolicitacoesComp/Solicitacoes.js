@@ -34,9 +34,9 @@ export default function Solicitacoes(Objeto) {
 const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
-        width: '91%',
+        width: '97%',
         borderColor: 'black',
-        backgroundColor: 'gray',
+        backgroundColor: 'white',
         borderWidth: 1,
         borderRadius: 8,
         margin: 5,
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     container2: {
         alignItems: 'center',
         width: '81%',
-        backgroundColor: 'gray',
+        backgroundColor: 'white',
         margin: 5,
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -54,7 +54,8 @@ const styles = StyleSheet.create({
     item: {
         padding: 5,
         alignItems: 'center',
-        width: '45%'
+        width: '45%',
+        fontSize: 15
     },
     imagem: {
         width: 70,
@@ -62,11 +63,11 @@ const styles = StyleSheet.create({
         borderRadius: 35
     },
     title: {
-        fontSize: 16,
+        fontSize: 20,
         fontWeight: 'bold'
     },
     subTitle: {
-        fontSize: 12,
+        fontSize: 15,
     }
 
 

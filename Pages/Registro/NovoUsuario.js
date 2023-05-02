@@ -198,7 +198,7 @@ export default function NewUser() {
             </View>
             <View style={[styles.selectType, { marginBottom: 35 }]}>
                 <View style={{ flex: 0.3, alignItems: 'center' }}>
-                    <Text>Aluno</Text>
+                    <Text style={styles.Text}>Aluno</Text>
                 </View>
                 <Switch
                     trackColor={{ false: colors.blue_light, true: colors.green_light }}
@@ -207,7 +207,7 @@ export default function NewUser() {
                     value={ehProfessor}
                 />
                 <View style={{ flex: 0.3, alignItems: 'center' }}>
-                    <Text>Professor</Text>
+                    <Text style={styles.Text}>Professor</Text>
                 </View>
             </View>
 
@@ -223,7 +223,7 @@ export default function NewUser() {
             />
             <MyButton title='Salvar' onPress={() => cadastrarPessoa()} />
 
-            <LinkButton title='Voltar'
+            <LinkButton title='Sair'
                 onPress={navigateToBack}
             />
         </View>
@@ -237,21 +237,23 @@ export default function NewUser() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'gray',
+        backgroundColor: 'blue',
         alignItems: 'center',
         justifyContent: 'center'
     },
     textTitle: {
-        color: 'black',
-        fontSize: 28,
-        marginBottom: 8
+        marginTop: 25,
+        color: 'white',
+        fontSize: 40,
+        marginBottom: 50
     },
     Picker: {
         margin: -8
     },
     textInput: {
         height: 40,
-        borderColor: colors.white,
+        backgroundColor: colors.white,
+        borderColor: colors.black,
         borderRadius: 8,
         borderWidth: 1,
         width: '70%',
@@ -280,9 +282,6 @@ const styles = StyleSheet.create({
     },
     selectType: {
         alignItems: 'center',
-        //borderColor: colors.gray,
-        //borderRadius: 8,
-        //borderWidth: 1,
         flexDirection: 'row',
         height: 40,
         justifyContent: 'center',
@@ -291,8 +290,9 @@ const styles = StyleSheet.create({
     },
     passwordContainer: {
         marginBottom: 16,
+        backgroundColor: colors.white,
         height: 40,
-        borderColor: 'white',
+        borderColor: 'black',
         borderRadius: 8,
         borderWidth: 1,
         width: '70%',
@@ -304,4 +304,8 @@ const styles = StyleSheet.create({
         color: 'black',
         marginTop: 6
     },
+    Text: {
+        color: colors.white,
+        fontSize: 20
+    }
 });

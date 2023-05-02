@@ -100,7 +100,7 @@ export default function NewUser() {
                 style={styles.textInput}
                 placeholder="Descrição do Projeto"
                 onChangeText={text => setDescricao(text)}
-                maxLength={11}
+                maxLength={100}
                 value={txtDescricao}
             />
             <MyButton title='Salvar' onPress={() => CadastrarSolicitacao()} />
@@ -119,21 +119,22 @@ export default function NewUser() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'gray',
+        backgroundColor: 'blue',
         alignItems: 'center',
         justifyContent: 'center'
     },
     textTitle: {
-        color: 'black',
-        fontSize: 28,
-        marginBottom: 8
+        marginBottom: 50,
+        color: 'white',
+        fontSize: 40
     },
     Picker: {
         margin: -8
     },
     textInput: {
         height: 40,
-        borderColor: colors.white,
+        borderColor: colors.black,
+        backgroundColor: colors.white,
         borderRadius: 8,
         borderWidth: 1,
         width: '70%',

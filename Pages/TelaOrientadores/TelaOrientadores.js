@@ -33,7 +33,7 @@ export default function MostrarProfessores() {
     navigation.goBack();
   }
 
-  function SelecionarProfessor(pessoa){
+  function SelecionarProfessor(pessoa) {
     navigation.navigate('CadastroSolicitacao');
     AsyncStorage.setItem('@SistemaTCC:Advisor', JSON.stringify(pessoa));
   }
@@ -42,22 +42,19 @@ export default function MostrarProfessores() {
     <View style={styles.container}>
 
       <Text style={styles.textTitle}>Orientadores Disponíveis</Text>
-      <TextInput style={styles.textInput} placeholder='Nome do Professor'
+
+      <TextInput style={styles.textInput} placeholder='Nome do Professor'/>
+     
+      <FlatList
+        data={ProfessoresList}
+        renderItem={({ item }) => (
+          <PessoaComp Imagem={Imagem} Nome={item.Nome} Email={item.Email} callback={() => SelecionarProfessor(item)} />
+          //componente do item da lista
+        )}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.itemJokeCSS}
+        keyExtractor={item => item.id}
       />
-
-
-
-      
-        <FlatList
-          data={ProfessoresList}
-          renderItem={({ item }) => (
-            <PessoaComp Imagem={Imagem} Nome={item.Nome} Email={item.Email} callback={() => SelecionarProfessor(item)}/>
-            //componente do item da lista
-          )}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={styles.itemJokeCSS}
-          keyExtractor={item => item.id}
-        />
 
 
 
@@ -72,12 +69,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: 'gray'
+    backgroundColor: 'blue'
   },
   textTitle: {
-    borderColor: colors.black,
-    fontSize: 28,
-    marginBottom: 8
+    marginTop: 15,
+    marginBottom: 30,
+    color: 'white',
+    fontSize: 40
   },
   inputContainer: {
 
@@ -91,15 +89,18 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     backgroundColor: '#fff',
     height: '80%'
-
+  },
+  item: {
+    padding: 5
   },
   textInput: {
     height: 40,
-    borderColor: colors.white,
+    borderColor: colors.black,
+    backgroundColor: colors.white,
     borderRadius: 8,
     borderWidth: 1,
     width: '70%',
-    marginBottom: 16,
+    marginBottom: 35,
     paddingHorizontal: 8
   },
   buttonIn: {
