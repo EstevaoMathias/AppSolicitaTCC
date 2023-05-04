@@ -93,8 +93,15 @@
       "id": 2,
       "AlunoSolicitanteID": 2,
       "ProfessorOrientadorID": 6,
-      "NomeProjeto": "Projeto Teste2",
-      "Descricao": "Descrição Projeto Teste2"
+      "NomeProjeto": "Projeto Teste Mauricio",
+      "Descricao": "Descrição Projeto Mauricio"
+    },
+    {
+      "id": 3,
+      "AlunoSolicitanteID": 3,
+      "ProfessorOrientadorID": 5,
+      "NomeProjeto": "Projeto Teste Humbertim",
+      "Descricao": "Descrição Projeto Humbertim"
     }
   ]
 }

@@ -6,8 +6,12 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useState, useEffect } from 'react';
 import PessoaComp from '../../Components/SolicitacoesComp/Solicitacoes';
 import api from '../../ApiService/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 
 export default function MostrarAlunos() {
+  
   const [SolicitacoesList, setSolicitacoesList] = useState([]);
   const Imagem = require('../../assets/Images/teste.png');
 
@@ -18,8 +22,8 @@ export default function MostrarAlunos() {
 
   );
   async function ObterSolicitacoes() {
-    //alert('Fazendo requisição');
-    const response = await api.get('/Solicitacoes');
+    const advisor = JSON.parse(await AsyncStorage.getItem('@SistemaTCC:Advisor'));
+    const response = await api.get(`/Solicitacoes?ProfessorOrientadorID=${advisor.id}`);
     setSolicitacoesList(response.data);
     
 }
