@@ -12,6 +12,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function MostrarProfessores() {
+
+  const [search, setSearch] = useState('');
+  const [idAluno, setIDAluno] = useState('');
+  const [profList, setProfList] = useState([]);
+
   const [ProfessoresList, setProfessoresList] = useState([]);
   const Imagem = require('../../assets/Images/teste.png');
 
@@ -21,11 +26,35 @@ export default function MostrarProfessores() {
     []
 
   );
+
+  const noResultsComponent = (
+    <View >
+      <Text style={{ fontStyle: 'italic', fontSize: 22, color: 'white', marginBottom: 20}}>Nenhum resultado encontrado!</Text>
+    </View>
+  );
+
+
   async function ObterProfessores() {
-    //alert('Fazendo requisição');
+    const response = await api.get('/Pessoa?TipoPessoaID=2');
+    const id = await AsyncStorage.getItem('@SistemaTCC:Advisor') || '';
+    setProfList(response.data);
+  }
+
+  /*async function ObterProfessores() {
     const response = await api.get('/Pessoa?TipoPessoaID=2');
     setProfessoresList(response.data);
   }
+  */
+
+  const filteredData = profList.filter(
+    (item) =>
+    item.Nome.toLowerCase().includes(search.toLowerCase())
+    //select * from data where nome like '%%'
+  );
+  
+  const renderItem = ({ item }) => (
+    <PessoaComp Imagem={Imagem} Nome={item.Nome} Email={item.Email} callback={() => SelecionarProfessor(item)} />
+  );
 
   const navigation = useNavigation();
 
@@ -42,21 +71,23 @@ export default function MostrarProfessores() {
     <View style={styles.container}>
 
       <Text style={styles.textTitle}>Orientadores Disponíveis</Text>
-
-      <TextInput style={styles.textInput} placeholder='Nome do Professor'/>
-     
-      <FlatList
-        data={ProfessoresList}
-        renderItem={({ item }) => (
-          <PessoaComp Imagem={Imagem} Nome={item.Nome} Email={item.Email} callback={() => SelecionarProfessor(item)} />
-          //componente do item da lista
-        )}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.itemJokeCSS}
-        keyExtractor={item => item.id}
+      <TextInput
+        style={styles.textInput}
+        placeholder='Nome do Professor'
+        value={search}
+        onChangeText={(text) => setSearch(text)}
       />
-
-
+    
+    {filteredData.length > 0 ? (
+        <FlatList
+          data={filteredData}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          ItemSeparatorComponent={() => <View style={{ borderBottomWidth: 1, borderBottomColor: '#ccc' }} />}
+        />
+      ) : (
+        noResultsComponent
+      )}
 
       <LinkButton title='Voltar' onPress={navigateToBack}
       />
