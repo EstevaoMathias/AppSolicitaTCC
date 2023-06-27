@@ -1,11 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import React, {useState} from 'react';
-
+import React, { useState } from 'react';
 import { RectButton, RectButtonProps } from 'react-native-gesture-handler';
 import colors from '../../styles/colors';
-
-
 
 export default function OptionButton(props) {
     return (
@@ -16,7 +13,6 @@ export default function OptionButton(props) {
         </RectButton>
     );
 }
-
 
 const styles = StyleSheet.create({
     container: {

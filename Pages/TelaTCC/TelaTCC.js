@@ -8,10 +8,8 @@ import PessoaComp from '../../Components/SolicitacoesComp/Solicitacoes';
 import api from '../../ApiService/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
-
 export default function MostrarAlunos() {
-  
+
   const [SolicitacoesList, setSolicitacoesList] = useState([]);
   const Imagem = require('../../assets/Images/teste.png');
 
@@ -25,8 +23,8 @@ export default function MostrarAlunos() {
     const advisor = JSON.parse(await AsyncStorage.getItem('@SistemaTCC:Advisor'));
     const response = await api.get(`/Solicitacoes?ProfessorOrientadorID=${advisor.id}`);
     setSolicitacoesList(response.data);
-    
-}
+
+  }
 
   const navigation = useNavigation();
 
@@ -39,23 +37,19 @@ export default function MostrarAlunos() {
 
       <Text style={styles.textTitle}>Solicitações Pendentes</Text>
 
-        <FlatList 
-          data={SolicitacoesList}
-          renderItem={({ item }) => (
-            <PessoaComp 
+      <FlatList
+        data={SolicitacoesList}
+        renderItem={({ item }) => (
+          <PessoaComp
             AlunoSolicitanteID={item.AlunoSolicitanteID}
-            NomeProjeto={item.NomeProjeto} 
+            NomeProjeto={item.NomeProjeto}
             Descricao={item.Descricao}
-            />
-            //componente do item da lista
-          )}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={styles.itemJokeCSS}
-          keyExtractor={item => item.id}
-        />
-
-
-
+          />
+        )}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.itemJokeCSS}
+        keyExtractor={item => item.id}
+      />
       <LinkButton title='Voltar' onPress={navigateToBack}
       />
 

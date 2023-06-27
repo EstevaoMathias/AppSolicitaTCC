@@ -1,6 +1,5 @@
 import { StyleSheet, View, Image, Text } from 'react-native';
 import React, { useState } from 'react';
-//import api from '../../ApiService/api';
 import LinkButton from '../LinkButton/Index';
 import colors from '../../styles/colors';
 import { useNavigation } from '@react-navigation/core';

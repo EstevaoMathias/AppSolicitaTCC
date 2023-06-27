@@ -18,8 +18,6 @@ import api from '../../services/api';
 const eye = 'eye';
 const eyeOff = 'eye-off';
 
-
-
 export default function NewUser() {
 
     const [flShowPass, setShowPass] = useState(true);
@@ -128,7 +126,6 @@ export default function NewUser() {
         navigation.goBack();
     }
 
-
     return (
         <View style={styles.container}>
             <Text style={styles.textTitle}>Preencha seus dados!</Text>
@@ -215,9 +212,6 @@ export default function NewUser() {
 
     );
 }
-
-
-
 
 const styles = StyleSheet.create({
     container: {

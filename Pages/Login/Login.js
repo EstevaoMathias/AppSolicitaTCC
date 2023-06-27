@@ -9,14 +9,10 @@ import {
 import api from '../../services/api';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
-//import api from '../../ApiService/api';
 import MyButton from '../../Components/MyButton/Index';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LinkButton from '../../Components/LinkButton/Index';
-
 import colors from '../../styles/colors';
-
-//import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const eye = 'eye';
 const eyeOff = 'eye-off';
@@ -29,7 +25,6 @@ export default function Login() {
   const [txtSenha, setSenha] = useState('123')
   const navigation = useNavigation()
   const [flLoading, setLoading] = useState(false)
-  //const [UsuarioValido, setUsuarioValido] = useState([])
 
   const Imagem = require('../../assets/Images/logo_uniaraxa.png');
 
@@ -44,10 +39,9 @@ export default function Login() {
     txtLogin === 'HUMBERTO' ? setLogin('ESTEVAO') : setLogin('HUMBERTO');
   }
 
-  async function navigateToAlunosOuProfessores()
-  {
+  async function navigateToAlunosOuProfessores() {
     let loginTxt = txtLogin;
-    let senhaTxt = txtSenha; 
+    let senhaTxt = txtSenha;
 
     if (txtLogin === '') {
       alert('Campo usuário é obrigatório!');
@@ -57,14 +51,7 @@ export default function Login() {
     }
 
     const response = await api.post("/login/post", { nome: loginTxt, senha: senhaTxt });
-    //const id = String(response.data.result.pessoaID);
     const people = await api.post(`/login/getPeople?id=${response.data.result.pessoaID}`)
-
-   //http://localhost:5000/login/getPeople?id=1
-
-    //const filteredData = response.tipo;
-    //const idPessoa = response.data.pessoA_ID;
-    //const nomePessoa = people.data.nome;
 
     if (response.data.length < 1) {
       alert('Usuario e/ou senha invalido!');

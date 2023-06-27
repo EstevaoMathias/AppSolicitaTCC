@@ -19,10 +19,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const eye = 'eye';
 const eyeOff = 'eye-off';
 
-
-
 export default function NewUser() {
-
 
     const [txtNomeProjeto, setNomeProjeto] = useState('')
     const [txtDescricao, setDescricao] = useState('')
@@ -53,10 +50,10 @@ export default function NewUser() {
 
     async function CadastrarSolicitacao() {
 
-        try{
+        try {
             const advisor = JSON.parse(await AsyncStorage.getItem('@SistemaTCC:Advisor'));
             const user = JSON.parse(await AsyncStorage.getItem('@SistemaTCC:user'));
-            
+
             let resultadoValidacao = validarCadastro();
 
             if (resultadoValidacao.cadastroValido) {
@@ -67,7 +64,7 @@ export default function NewUser() {
                     nomeProjeto: txtNomeProjeto,
                     descricao: txtDescricao
                 }
-                const response = await api.post('/worker/sendRequest',objNovoUsuario);
+                const response = await api.post('/worker/sendRequest', objNovoUsuario);
                 alert('Solicitação criada!');
                 navigation.navigate('TelaOrientadores');
                 return;
@@ -78,7 +75,7 @@ export default function NewUser() {
                 });
                 return;
             }
-        }catch(e){
+        } catch (e) {
             alert(e.message)
         }
     }
@@ -86,7 +83,6 @@ export default function NewUser() {
     function navigateToBack() {
         navigation.goBack();
     }
-
 
     return (
         <View style={styles.container}>
@@ -114,9 +110,6 @@ export default function NewUser() {
 
     );
 }
-
-
-
 
 const styles = StyleSheet.create({
     container: {
@@ -165,9 +158,6 @@ const styles = StyleSheet.create({
     },
     selectType: {
         alignItems: 'center',
-        //borderColor: colors.gray,
-        //borderRadius: 8,
-        //borderWidth: 1,
         flexDirection: 'row',
         height: 40,
         justifyContent: 'center',

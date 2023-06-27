@@ -5,12 +5,9 @@ import { StyleSheet, Text, TextInput, Touchable, TouchableOpacity, View, FlatLis
 import { useNavigation } from '@react-navigation/native';
 import React, { useState, useEffect } from 'react';
 import PessoaComp from '../../Components/PessoaComponent/Pessoa';
-//import api from '../../ApiService/api';
 import api from '../../services/api';
 import { ScrollView } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-
 
 export default function MostrarProfessores() {
 
@@ -30,35 +27,23 @@ export default function MostrarProfessores() {
 
   const noResultsComponent = (
     <View >
-      <Text style={{ fontStyle: 'italic', fontSize: 22, color: 'white', marginBottom: 20}}>Nenhum resultado encontrado!</Text>
+      <Text style={{ fontStyle: 'italic', fontSize: 22, color: 'white', marginBottom: 20 }}>Nenhum resultado encontrado!</Text>
     </View>
   );
 
-
   async function ObterProfessores() {
-    //alert('Fazendo requisição');
     const response = await api.get("/worker/getAdvisor");
     setProfList(response.data.result);
     const id = await AsyncStorage.getItem('@SistemaTCC:user') || '';
-    //setNameAluno(await AsyncStorage.getItem('@SistemaTCC:userName')) || '';
     setIDAluno(id);
-    //const aluno = await api.post("/login/getPeople", { pessoaID: idAluno });
     AsyncStorage.setItem('@SistemaTCC:user', id);
-    //AsyncStorage.setItem('@SistemaTCC:userName', String(nameAluno));
   }
-
-  /*async function ObterProfessores() {
-    const response = await api.get('/Pessoa?TipoPessoaID=2');
-    setProfessoresList(response.data);
-  }
-  */
 
   const filteredData = profList.filter(
     (item) =>
-    item.nome.toLowerCase().includes(search.toLowerCase())
-    //select * from data where nome like '%%'
+      item.nome.toLowerCase().includes(search.toLowerCase())
   );
-  
+
   const renderItem = ({ item }) => (
     <PessoaComp Imagem={Imagem} Nome={item.nome} Email={item.email} callback={() => SelecionarProfessor(item)} />
   );
@@ -84,8 +69,8 @@ export default function MostrarProfessores() {
         value={search}
         onChangeText={(text) => setSearch(text)}
       />
-    
-    {filteredData.length > 0 ? (
+
+      {filteredData.length > 0 ? (
         <FlatList
           data={filteredData}
           renderItem={renderItem}

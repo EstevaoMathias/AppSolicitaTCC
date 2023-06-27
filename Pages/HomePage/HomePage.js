@@ -12,7 +12,6 @@ import { useNavigation } from '@react-navigation/core';
 import MyButton from '../../Components/MyButton/Index';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LinkButton from '../../Components/LinkButton/Index';
-
 import colors from '../../styles/colors';
 
 export default function Home() {
@@ -21,20 +20,18 @@ export default function Home() {
 
     const Imagem = require('../../assets/Images/logo_uniaraxa.png');
 
-        function navigateToNovoUsuario() {
-            navigation.navigate('NovoUsuario')
-        }
+    function navigateToNovoUsuario() {
+        navigation.navigate('NovoUsuario')
+    }
 
-        function navigateToLogin() {
-            navigation.navigate('Login')
-        }
-    
-
+    function navigateToLogin() {
+        navigation.navigate('Login')
+    }
 
     return (
         <View style={styles.container}>
 
-            <Image source={Imagem} style={styles.imagem}/>
+            <Image source={Imagem} style={styles.imagem} />
 
             <MyButton title='Entrar' onPress={navigateToLogin} />
 
@@ -43,7 +40,6 @@ export default function Home() {
         </View>
     );
 }
-
 
 const styles = StyleSheet.create({
     container: {

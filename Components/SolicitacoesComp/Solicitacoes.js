@@ -1,6 +1,5 @@
 import { StyleSheet, View, Image, Text } from 'react-native';
 import React, { useState } from 'react';
-//import api from '../../ApiService/api';
 import LinkButton from '../LinkButton/Index';
 import colors from '../../styles/colors';
 
@@ -29,7 +28,6 @@ export default function Solicitacoes(Objeto) {
 
     )
 }
-
 
 const styles = StyleSheet.create({
     container: {
