@@ -13,7 +13,7 @@ import { useNavigation } from '@react-navigation/core';
 import MyButton from '../../Components/MyButton/Index';
 import LinkButton from '../../Components/LinkButton/Index';
 import colors from '../../styles/colors';
-import api from '../../ApiService/api';
+import api from '../../services/api';
 
 const eye = 'eye';
 const eyeOff = 'eye-off';
@@ -25,15 +25,13 @@ export default function NewUser() {
     const [flShowPass, setShowPass] = useState(true);
     const [iconPass, setIconPass] = useState(eyeOff);
     const [txtNome, setNome] = useState('TESTEPROFESSOR')
-    const [txtDocument, setDocument] = useState('22222222222')
     const [txtEmail, setEmail] = useState('testeprofessor@gmail.com')
     const [txtSenha, setSenha] = useState('1234')
     const [txtSenhaConfirm, setSenhaConfirm] = useState('1234')
     const navigation = useNavigation()
-    const [txtTipo, setTipo] = useState(1)
-    const [flLoading, setLoading] = React.useState(false)
+    const [txtTipo, setTipo] = useState(5)
     const [lstErrors, setListErrors] = useState([]);
-    const [userType, setUserType] = useState(1);
+    const [userType, setUserType] = useState(5);
     const toggleSwitch = () => setEhProfessor(previousState => !previousState);
     const [ehProfessor, setEhProfessor] = useState(false);
 
@@ -53,7 +51,7 @@ export default function NewUser() {
     }
 
     function selectType() {
-        let type = userType == 2 ? 1 : 2;
+        let type = userType == 6 ? 5 : 6;
         setEhProfessor(previousState => !previousState);
         setUserType(type);
     }
@@ -66,11 +64,6 @@ export default function NewUser() {
 
         if (txtNome.trim() === '') {
             validacoes.push('Campo nome é obrigatório');
-            cadastroValido = false;
-        }
-
-        if (txtDocument.trim() === '') {
-            validacoes.push('Campo CPF é obrigatório');
             cadastroValido = false;
         }
 
@@ -107,16 +100,15 @@ export default function NewUser() {
             let resultadoValidacao = validarCadastro();
 
             if (resultadoValidacao.cadastroValido) {
-                ehProfessor ? setTipo(1) : setTipo(2);
+                ehProfessor ? setTipo(5) : setTipo(6);
                 let objNovoUsuario = {
-                    id: null,
-                    Nome: txtNome,
-                    Documento: txtDocument,
-                    Email: txtEmail,
-                    Senha: txtSenha,
-                    TipoPessoaID: txtTipo
+                    nome: txtNome,
+                    tipoPessoaID: txtTipo,
+                    email: txtEmail,
+                    senha: txtSenha
+                    
                 }
-                const response = await api.post('/Pessoa',objNovoUsuario);
+                const response = await api.post('/login/create',objNovoUsuario);
                 alert('Usuário Criado!');
                 navigation.navigate('NovoUsuario');
                 return;
@@ -146,13 +138,6 @@ export default function NewUser() {
                 onChangeText={text => setNome(text)}
                 maxLength={50}
                 value={txtNome}
-            />
-            <TextInput
-                style={styles.textInput}
-                placeholder="Cpf"
-                onChangeText={text => setDocument(text)}
-                maxLength={11}
-                value={txtDocument}
             />
             <TextInput
                 style={styles.textInput}

@@ -13,7 +13,7 @@ import { useNavigation } from '@react-navigation/core';
 import MyButton from '../../Components/MyButton/Index';
 import LinkButton from '../../Components/LinkButton/Index';
 import colors from '../../styles/colors';
-import api from '../../ApiService/api';
+import api from '../../services/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const eye = 'eye';
@@ -22,6 +22,8 @@ const eyeOff = 'eye-off';
 
 
 export default function NewUser() {
+
+
     const [txtNomeProjeto, setNomeProjeto] = useState('')
     const [txtDescricao, setDescricao] = useState('')
 
@@ -54,18 +56,18 @@ export default function NewUser() {
         try{
             const advisor = JSON.parse(await AsyncStorage.getItem('@SistemaTCC:Advisor'));
             const user = JSON.parse(await AsyncStorage.getItem('@SistemaTCC:user'));
+            
             let resultadoValidacao = validarCadastro();
 
             if (resultadoValidacao.cadastroValido) {
 
                 let objNovoUsuario = {
-                    id: null,
-                    AlunoSolicitanteID: user.id,
-                    ProfessorOrientadorID: advisor.id,
-                    NomeProjeto: txtNomeProjeto,
-                    Descricao: txtDescricao
+                    alunoID: user,
+                    orientadorID: advisor.pessoaID,
+                    nomeProjeto: txtNomeProjeto,
+                    descricao: txtDescricao
                 }
-                const response = await api.post('/Solicitacoes',objNovoUsuario);
+                const response = await api.post('/worker/sendRequest',objNovoUsuario);
                 alert('Solicitação criada!');
                 navigation.navigate('TelaOrientadores');
                 return;

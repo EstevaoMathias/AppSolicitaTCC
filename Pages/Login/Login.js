@@ -6,9 +6,10 @@ import {
   View,
   Image
 } from 'react-native';
+import api from '../../services/api';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
-import api from '../../ApiService/api';
+//import api from '../../ApiService/api';
 import MyButton from '../../Components/MyButton/Index';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LinkButton from '../../Components/LinkButton/Index';
@@ -24,8 +25,8 @@ export default function Login() {
 
   const [flShowPass, setShowPass] = useState(true)
   const [iconPass, setIconPass] = useState(eyeOff)
-  const [txtLogin, setLogin] = useState('HUMBERTO')
-  const [txtSenha, setSenha] = useState('1234')
+  const [txtLogin, setLogin] = useState('TESTEALUNO1')
+  const [txtSenha, setSenha] = useState('123')
   const navigation = useNavigation()
   const [flLoading, setLoading] = useState(false)
   //const [UsuarioValido, setUsuarioValido] = useState([])
@@ -43,51 +44,41 @@ export default function Login() {
     txtLogin === 'HUMBERTO' ? setLogin('ESTEVAO') : setLogin('HUMBERTO');
   }
 
-  async function navigateToAlunosOuProfessores() {
+  async function navigateToAlunosOuProfessores()
+  {
+    let loginTxt = txtLogin;
+    let senhaTxt = txtSenha; 
 
-    if (txtLogin.trim() === '') {
-      alert('Campo login é obrigatório');
-      return;
+    if (txtLogin === '') {
+      alert('Campo usuário é obrigatório!');
+    }
+    else if (txtSenha === '') {
+      alert('Campo senha é obrigatório!');
     }
 
-    if (txtSenha.trim() === '') {
-      alert('Campo senha é obrigatório');
-      return;
+    const response = await api.post("/login/post", { nome: loginTxt, senha: senhaTxt });
+    //const id = String(response.data.result.pessoaID);
+    const people = await api.post(`/login/getPeople?id=${response.data.result.pessoaID}`)
+
+   //http://localhost:5000/login/getPeople?id=1
+
+    //const filteredData = response.tipo;
+    //const idPessoa = response.data.pessoA_ID;
+    //const nomePessoa = people.data.nome;
+
+    if (response.data.length < 1) {
+      alert('Usuario e/ou senha invalido!');
     }
-
-    let resposta = 0;
-
-    await api.get(`/Pessoa?Nome=${txtLogin}&Senha=${txtSenha}`).then(async (response) => {
-      resposta = response.data.length;
-      if (resposta == 0) {
-        alert('Usuario e/ou senha inválido!');
-        return;
-      } else {
-
-        if (response.data[0].TipoPessoaID == 1) {
-          await AsyncStorage.setItem('@SistemaTCC:user', JSON.stringify(response.data[0]));
-          navigation.navigate('TelaOrientadores');
-          return;
-        }
-
-        if (response.data[0].TipoPessoaID == 2) {
-          await AsyncStorage.setItem('@SistemaTCC:Advisor', JSON.stringify(response.data[0]));
-          navigation.navigate('TelaTCC');
-          return;
-        }
-
-        else {
-          alert('Não está achando o tipo');
-        }
-        return;
+    else {
+      AsyncStorage.setItem('@SistemaTCC:user', response.data.result.pessoaID);
+      AsyncStorage.setItem('@SistemaTCC:userName', String(people.data.result.nome));
+      if (people.data.result.tipoPessoaID === 5) {
+        navigation.navigate('TelaOrientadores')
       }
-    }).catch(err => alert(err));
-
-  }
-
-
-  function navigateToNovoUsuario() {
-    navigation.navigate('NovoUsuario')
+      else {
+        navigation.navigate('TelaTCC')
+      }
+    }
   }
 
   function navigateToBack() {

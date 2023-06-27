@@ -5,7 +5,8 @@ import { StyleSheet, Text, TextInput, Touchable, TouchableOpacity, View, FlatLis
 import { useNavigation } from '@react-navigation/native';
 import React, { useState, useEffect } from 'react';
 import PessoaComp from '../../Components/PessoaComponent/Pessoa';
-import api from '../../ApiService/api';
+//import api from '../../ApiService/api';
+import api from '../../services/api';
 import { ScrollView } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -35,9 +36,15 @@ export default function MostrarProfessores() {
 
 
   async function ObterProfessores() {
-    const response = await api.get('/Pessoa?TipoPessoaID=2');
-    const id = await AsyncStorage.getItem('@SistemaTCC:Advisor') || '';
-    setProfList(response.data);
+    //alert('Fazendo requisição');
+    const response = await api.get("/worker/getAdvisor");
+    setProfList(response.data.result);
+    const id = await AsyncStorage.getItem('@SistemaTCC:user') || '';
+    //setNameAluno(await AsyncStorage.getItem('@SistemaTCC:userName')) || '';
+    setIDAluno(id);
+    //const aluno = await api.post("/login/getPeople", { pessoaID: idAluno });
+    AsyncStorage.setItem('@SistemaTCC:user', id);
+    //AsyncStorage.setItem('@SistemaTCC:userName', String(nameAluno));
   }
 
   /*async function ObterProfessores() {
@@ -48,12 +55,12 @@ export default function MostrarProfessores() {
 
   const filteredData = profList.filter(
     (item) =>
-    item.Nome.toLowerCase().includes(search.toLowerCase())
+    item.nome.toLowerCase().includes(search.toLowerCase())
     //select * from data where nome like '%%'
   );
   
   const renderItem = ({ item }) => (
-    <PessoaComp Imagem={Imagem} Nome={item.Nome} Email={item.Email} callback={() => SelecionarProfessor(item)} />
+    <PessoaComp Imagem={Imagem} Nome={item.nome} Email={item.email} callback={() => SelecionarProfessor(item)} />
   );
 
   const navigation = useNavigation();
