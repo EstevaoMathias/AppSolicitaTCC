@@ -5,7 +5,7 @@ import { StyleSheet, Text, TextInput, Touchable, TouchableOpacity, View, FlatLis
 import { useNavigation } from '@react-navigation/native';
 import React, { useState, useEffect } from 'react';
 import PessoaComp from '../../Components/SolicitacoesComp/Solicitacoes';
-import api from '../../ApiService/api';
+import api from '../../services/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function MostrarAlunos() {
@@ -20,9 +20,14 @@ export default function MostrarAlunos() {
 
   );
   async function ObterSolicitacoes() {
-    const advisor = JSON.parse(await AsyncStorage.getItem('@SistemaTCC:Advisor'));
-    const response = await api.get(`/Solicitacoes?ProfessorOrientadorID=${advisor.id}`);
-    setSolicitacoesList(response.data);
+    const advisor = JSON.parse(await AsyncStorage.getItem('@SistemaTCC:user'));
+    console.log(advisor)
+    const response = await api.post("/worker/getRequests", {
+      orientadorID : advisor
+    });
+    console.log(advisor)
+    console.log(response)
+    setSolicitacoesList(response.data.result);
 
   }
 
@@ -41,14 +46,14 @@ export default function MostrarAlunos() {
         data={SolicitacoesList}
         renderItem={({ item }) => (
           <PessoaComp
-            AlunoSolicitanteID={item.AlunoSolicitanteID}
-            NomeProjeto={item.NomeProjeto}
-            Descricao={item.Descricao}
+            AlunoSolicitanteID={item.aluno.pessoaID}
+            NomeProjeto={item.nomeProjeto}
+            Descricao={item.descricao}
           />
         )}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.itemJokeCSS}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item.solicitacaoID}
       />
       <LinkButton title='Voltar' onPress={navigateToBack}
       />
